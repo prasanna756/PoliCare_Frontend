@@ -1,0 +1,462 @@
+*{
+  margin:0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'afacad'!important;
+} 
+.profile-container{
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  background-image: url("../../../assets/policy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  margin: 0; 
+  border: none;
+  box-shadow: none;
+}
+.profile-page{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width:550px;
+  text-align: center;
+ 
+}
+.into-columns{
+  justify-content: space-around;
+  display:flex;
+ 
+}
+.nav-buttons {
+  font-family: 'afacad';
+  display: flex;
+  
+}
+
+.navbar img{
+  margin-right: auto;
+  margin-top:2px;
+  width:180px;
+  height:45px;
+}
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top:2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+
+footer {
+  background-color: transparent; 
+  color: #1E55B3; /* Text color for the footer */
+  padding: 0px; /* Padding around the content inside the footer */
+  text-align: center; /* Align the content in the center */
+  position: fixed; /* Fixed position at the bottom of the viewport */
+  width: 100%; /* Full width */
+  bottom: 0; /* Stick to the bottom */
+}
+
+footer p {
+  margin: 0; /* Remove default margin */
+}
+.general
+{
+  /* margin-right:10px; */
+  text-align: left;
+  padding-right: 0px;
+
+}
+.contact
+{
+  text-align: left;
+  margin-left:19px;
+}
+
+
+h5{
+  color:#1E55B3;
+  margin-bottom: 5px;
+}
+.address{
+  margin-top:10px;
+}
+
+
+.profile-page h2 {
+  color: #1E55B3;
+  display: flex;
+  margin-bottom: 5px;
+  margin-top: -25px;
+  text-align: left;
+
+}
+
+.edit-button {
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+  margin-left:auto;
+}
+
+.password-toggle-btn {
+position: relative;
+top: 12px;
+right: 30px; /* Adjust as needed */
+transform: translateY(-50%);
+background: transparent !important;
+border: none;
+padding: 0;
+cursor: pointer;
+z-index: 2;
+align-content: end;
+/* left:175px; */
+
+}
+.users-form {
+background: rgba(255, 255, 255, 0.8);
+padding: 20px;
+border-radius: 20px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+width: 1000px;
+margin-top: 0.3%; 
+margin-left: 13%;
+/* position: relative; */
+ top:58%; 
+text-align: center;
+/* margin-top:45px; */
+}
+
+
+.details{
+display:flex;
+/* padding: 20px; */
+/* justify-content: space-evenly,flex-start; */
+}
+.name{
+display: flex;
+justify-content: space-evenly;
+margin-bottom:5px;
+}
+.dob-pan{
+display: flex;
+justify-content: space-evenly;
+margin-bottom:5px;
+}
+.employee
+{
+display: flex;
+justify-content: space-evenly;
+margin-bottom:5px;
+}
+.sal-type{
+display:flex;
+justify-content: space-evenly;
+}
+.email-phone{
+display:flex;
+margin-bottom:5px;
+}
+.overview{
+margin-top: -10px;
+margin-bottom: 10px;
+color: #4177d3;
+font-size: 40px;
+}
+.pan{
+margin-left:5px;
+}
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+.login-form-group select.login-form-control{
+width: 200px;
+padding: 10px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 10px;
+}
+button[type="submit"] {
+text-decoration:none;
+margin-top: 10px;
+font-size: 19px;
+display: inline-block;
+letter-spacing: 2px;
+padding:12px 20px;
+background-color: #1E55B3;
+border-radius: 40px;
+color:#FFFFFF;
+border: none;
+}
+.navbar img{
+margin-right: auto;
+margin-top:2px;
+width:180px;
+height:45px;
+}
+.general-info{
+margin-left: 40px;
+
+}
+.general-info h3{
+margin-top: 0px;
+margin-bottom:0px;
+margin-left: 0px;
+/* margin-right: 20px; */
+text-align: left;
+
+}
+.contact-info h5{
+margin-top: 0px;
+margin-bottom:0px;
+/* margin-left: 100px; */
+text-align: center;
+}
+
+.contact-info input[type="email"]{
+  margin-left: 58px;
+}
+.form-inline p{
+margin-top: 0px;
+margin-bottom:10px;
+margin-left: 10px;
+text-align:center;
+}
+
+.type,
+.lname,
+.ename{
+margin-left: 5px;
+}
+
+.phone{
+margin-right: 9px;
+margin-left: 5px;
+}
+.password{
+margin-top: 0px;
+}
+.pin-state,
+.street-city{
+display:flex;
+justify-content: space-evenly;
+margin-left: 50px;
+margin-bottom:5px;
+}
+/* .password-input{
+position: relative;
+} */
+.password-toggle-btn {
+position: relative;
+top: 12px;
+right: 30px; /* Adjust as needed */
+transform: translateY(-50%);
+background: transparent !important;
+border: none;
+padding: 0;
+cursor: pointer;
+z-index: 2;
+align-content: end;
+/* left:175px; */
+
+}
+
+.nav-buttons {
+font-family: 'afacad';
+display: flex;
+
+}
+
+.navbar-logo {
+height: 45px;
+width: 180px;
+}
+
+.nav-button {
+margin-left: 10px;
+margin-right: 10px;
+margin-top:2px;
+padding: 10px 20px;
+background-color: #1E55B3;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+text-decoration: none;
+font-family: 'afacad';
+font-size: 15px;
+}
+
+.nav-button:hover {
+background-color: #114194;
+}
+
+.profile-pic {
+  width: 100px; 
+  height: 100px;
+  border-radius: 50%; 
+  object-fit: cover;
+}
+.profile-pic-btn{
+  width: 20%;
+  background-color: aliceblue;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .profile-container {
+    background-image: url("../../../assets/tab-background.png");
+  }
+  .users-form {
+    width: 60%; 
+    margin: 10% auto 0; 
+    padding: 10px; 
+    
+  }
+  .general-info{
+    margin-left:0px !important;
+  }
+  .details
+  {
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  .login-form-group select.login-form-control {
+    width: 100%; 
+    margin: 0 0 10px 0; 
+  }
+  .password{
+    width:55% !important;
+    margin-left: 25%;
+  }
+  .street-city,
+  .pin-state{
+    margin-left: -1%;
+    width: 100%;
+    justify-content: space-evenly;
+    display: flex;
+    gap: 5px;
+  }
+
+  button.password-toggle-btn img{
+    margin-top: -600%;
+    margin-left: 700%;
+  }
+
+  .email-phone {
+    flex-direction: row; 
+    align-items: center; 
+    margin-bottom: 10px; 
+  }
+  
+  .email-phone input[type="email"],
+  .email-phone input[type="number"] {
+    width: 90%; 
+    margin: 10px 0; 
+  }
+}
+
+@media only screen and (max-width: 710px) {
+  .profile-container{
+    background-image: url("../../../assets/phone-background.png");
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .profile-page {
+    position: relative; 
+    top: initial;
+    left: initial; 
+    transform: none;
+    width: 100%;
+    max-width: 330px; 
+    margin: 0 auto; 
+    padding: 20px;
+    margin-top: 30px;
+  }
+  .profile-pic {
+    width: 80px; 
+    height: 80px;
+  }
+  .users-form {
+    width: 80%; /* Use a relative width for mobile */
+    margin: 10% auto 0; /* Center the form */
+    padding: 10px; /* Add padding */ 
+  }
+  .general-info{
+    margin-left:0px !important;
+  }
+
+  .nav-button{
+    margin-left: 5px;
+    margin-right: 3px;
+    margin-top:2px;
+    padding: 1px 5px;
+    align-items: right !important;
+  }
+
+  .into-columns, .general, .contact, .address {
+    display: block; 
+  }
+  
+  .contact{
+    margin-right: 15px;
+    margin-left: 0px;
+  }
+  .navbar img {
+    margin-right: auto;
+    width:100px;
+    height:25px;
+}
+
+  
+  input[type="text"], input[type="email"], input[type="date"],
+  input[type="number"], input[type="password"],
+  .login-form-group select.login-form-control {
+    width: 100%; 
+    max-width: 300px; 
+    box-sizing: border-box; 
+  }
+  .edit-button {
+    padding: 3px 10px;
+  }
+  .profile-page h2 {
+    margin-bottom: 5px;
+    margin-top: -15px;
+    text-align: left;
+  
+  }
+
+}

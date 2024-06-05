@@ -1,0 +1,307 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'afacad';
+}
+
+.claims-container {
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  background-image: url("../../../assets/policy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-buttons {
+  font-family: 'afacad';
+  display: flex;
+
+}
+
+.navbar img {
+  margin-right: auto;
+  margin-top: 2px;
+  width: 180px;
+  height: 45px;
+}
+
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+
+footer {
+  background-color: transparent;
+  color: #1E55B3;
+  padding: 0px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+
+
+.claims-table tbody tr button {
+  border: none;
+  padding: 5px;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+
+.claims-table tbody tr button img {
+  width: 17px;
+  height: 20px;
+
+}
+
+.claims-table {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 90%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+.search-table {
+  margin-top: 25px;
+  justify-content: center;
+}
+
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.214);
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle; 
+}
+
+
+
+th:first-child,
+td:first-child {
+  border-left: none;
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
+}
+
+th {
+  border-top: none;
+}
+
+td {
+  border-bottom: none;
+}
+
+.pagination {
+  justify-content: end;
+
+}
+
+select {
+  justify-content: center;
+  padding: 10px 20px;
+  /* font-family: 'afacad', sans-serif;  */
+  /* font-size: 1rem; */
+  border: 2px solid #1E55B3;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  appearance: none;
+  background-image: url('../../../assets/caret-down.png');
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  background-size: 20px;
+}
+
+.select-dropdown {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.select-dropdown .text-danger {
+  position: absolute;
+  bottom: -20px; /* Adjust as needed */
+  width: 100%;
+  font-size: 0.875em; /* Adjust as needed */
+  color: #dc3545;
+  min-height: 20px; /* Adjust based on your design */
+}
+
+.select-dropdown {
+  color: #333;
+  margin-right: 10px;
+}
+
+.select-dropdown select,
+.select-dropdown input[type="text"],
+.select-dropdown input[type="number"] {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 2px solid #1E55B3;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  appearance: none;
+}
+
+.select-dropdown select:focus,
+.select-dropdown select:hover,
+.select-dropdown input[type="text"]:focus,
+.select-dropdown input[type="text"]:hover,
+.select-dropdown input[type="number"]:focus,
+.select-dropdown input[type="number"]:hover {
+  outline: none;
+  background-color: #fff;
+}
+
+.select-dropdown select:active,
+.select-dropdown select:checked,
+.select-dropdown input[type="text"]:active,
+.select-dropdown input[type="text"]:checked,
+.select-dropdown input[type="number"]:active,
+.select-dropdown input[type="number"]:checked {
+  background-color: #fff;
+}
+
+.select-dropdown select option {
+  background-color: #fff;
+  color: #333;
+}
+
+.select-dropdown button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #1E55B3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  /* margin-top: 10px; */
+}
+
+.edit-claims {
+  margin: auto; 
+  width: 35%;
+  padding: 20px;
+  background-color: #ffffff98;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 25px;
+  text-align: center;
+}
+
+
+.edit-claims label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+  font-weight: bold;
+
+}
+.edit-claims h2{
+  color: #1E55B3;
+  margin-bottom: 5px;
+}
+
+
+.edit-claims input, .edit-claims select {
+  width: 100%; 
+  padding: 8px; 
+  margin-bottom: 15px;
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  box-sizing: border-box; 
+}
+
+
+.edit-claims button {
+  background-color: #1E55B3; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+.edit-claims button:hover {
+  background-color: #114194;
+}
+
+
+.edit-claims div.error {
+  color: red;
+  font-size: 12px; 
+  margin-top: 5px; 
+}
+@media only screen and (max-width: 1024px) {
+  .claims-container {
+    background-image: url("../../../assets/tab-background.png");
+  }
+  .edit-claims{
+    width:80%;
+    margin-top: 25%;
+    }
+}
+@media only screen and (max-width: 710px) {
+  .claims-container {
+    background-image: url("../../../assets/phone-background.png");
+  }
+  th,
+  td {
+    padding: 6px;
+    font-size: 11px;
+  }
+  .navbar img {
+    width: 100px; /* Adjust the logo size for mobile if necessary */
+    height: 25px;
+  }
+  .nav-button{
+    padding: 3px 5px;
+    align-items: right;
+    
+  }
+  
+.claims-table tbody tr button img {
+  width: 10px;
+  height: 13px;
+
+}
+.edit-claims{
+width:80%;
+margin-top: 25%;
+}
+}

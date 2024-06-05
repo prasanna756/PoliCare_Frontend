@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-dashboard</title>
+    <link rel="stylesheet" href="user-policies.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="user-policies-container">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png">
+            <div class="nav-buttons">
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/explore-policies">Search
+                    Policies</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/explore-policies">Manage
+                    Policies</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-dashboard">Dashboard</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/admin-dashboard">Dashboard</button>
+                <button class="nav-button" routerLink="/profile">Profile</button>
+
+            </div>
+        </nav>
+
+        <div *ngIf="isUserLoggedIn()" class="table-container">
+            <div *ngIf="!showClaimForm && !showPayForm">
+                <table class="table">
+                    <thead class="thead">
+                        <tr>
+                            <th>UserPolicyId</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Maturity Amount</th>
+                            <th>Duration In Years</th>
+                            <th>Policy Id</th>
+                            <th>Policy Name</th>
+                            <th>Initial Deposit</th>
+                            <th>Term Period</th>
+                            <th>Term Amount</th>
+                            <th>Interest</th>
+                            <th>Register Claim</th>
+                            <th>Do Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userPolicy of paginatedUserPolicies">
+                            <td>{{ userPolicy.userPolicyId }}</td>
+                            <td>{{ userPolicy.startDate }}</td>
+                            <td>{{ userPolicy.endDate }}</td>
+                            <td>{{ userPolicy.maturityAmount }}</td>
+                            <td>{{ userPolicy.durationInYears }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.policyId }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.policyName }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.initialDeposit}}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.termPeriod }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.termAmount }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.interest }}</td>
+                            <td>
+                                <button type="button" class="pay-now-btn"
+                                    (click)="registerClaim(userPolicy)">Claim</button>
+                            </td>
+                            <td>
+                                <button type="button" class="pay-now-btn" (click)="makePayment(userPolicy)">Pay
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <button type="button" class="btn btn-sm" (click)="prevPage()"
+                        [disabled]="currentPage === 1">Previous</button>
+                    <span>{{ currentPage }} / {{ totalPages }}</span>
+                    <button type="button" class="btn btn-sm" (click)="nextPage()"
+                        [disabled]="currentPage === totalPages">Next</button>
+                </div>
+            </div>
+
+            <div *ngIf="showPayForm" class="payment-form">
+                <form [formGroup]="payForm" (ngSubmit)="onPay()" class="pay-form">
+                    <div class="payment-reg-header">
+                        <h2>Make Payment</h2>
+                    </div>
+                    <div class="payment-form-group">
+                        <p>Payment Date: {{ currentDate | date:'yyyy-MM-dd' }}</p>
+                        <p>Total Amount: {{ payments.totalAmount | currency:'INR' }}</p>
+                        <p>Fine: {{ payments.fine | currency:'INR' }}</p>
+                        <select formControlName="paymentMethod" class="payment-form-control"
+                            (change)="onPaymentMethodChange($event)"
+                            [ngClass]="{ 'is-invalid': f2['paymentMethod'].touched && f2['paymentMethod'].invalid }">
+
+                            <option value="">Select Payment Method</option>
+                            <option value="Card">Credit/Debit Card</option>
+                            <option value="Net Banking">Net Banking</option>
+                        </select>
+                        <div *ngIf="f2['paymentMethod']?.touched && f2['paymentMethod']?.invalid"
+                            class="invalid-feedback">
+                            <div class="text-danger" *ngIf="f2['paymentMethod'].errors?.['required']">Payment Method is
+                                required</div>
+                        </div><br>
+                        <form [formGroup]="cardForm" class="card-form">
+                            <div class="card-content">
+                                <div *ngIf="selectedFilterMethod === 'Card' && showCardForm" class="form-group">
+                                    <input type="text" id="cardNumber" formControlName="cardNumber"
+                                        placeholder="Card Number"
+                                        [ngClass]="{'is-invalid': f3['cardNumber'].touched && f3['cardNumber'].invalid}">
+                                    <div *ngIf="f3['cardNumber']?.touched && f3['cardNumber']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cardNumber'].errors?.['required']">Card
+                                            Number is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f3['cardNumber'].errors?.['pattern']">Card
+                                            Number must
+                                            contain
+                                            16 digits</div>
+                                    </div>
+                                    <input type="text" id="expiryDate" formControlName="expiryDate"
+                                        placeholder="Expiry Date (MM/YYYY)"
+                                        [ngClass]="{'is-invalid': f3['expiryDate'].touched && f3['expiryDate'].invalid}">
+                                    <div *ngIf="f3['expiryDate']?.touched && f3['expiryDate']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['expiryDate'].errors?.['required']">Expiry
+                                            Date is
+                                            required</div>
+                                        <div class="text-danger" *ngIf="f3['expiryDate'].errors?.['pattern']">Expiry
+                                            date must
+                                            be in
+                                            MM/YYYY format.</div>
+                                    </div>
+
+                                    <input type="text" id="cvv" formControlName="cvv" placeholder="CVV"
+                                        [ngClass]="{'is-invalid': f3['cvv'].touched && f3['cvv'].invalid}">
+                                    <div *ngIf="f3['cvv']?.touched && f3['cvv']?.invalid" class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cvv'].errors?.['required']">CVV is required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f3['cvv'].errors?.['pattern']">CVV must contain
+                                            3 digits
+                                        </div>
+                                    </div>
+
+                                    <input type="text" id="cardHolder" formControlName="cardHolder"
+                                        placeholder="Card Holder"
+                                        [ngClass]="{'is-invalid': f3['cardHolder'].touched && f3['cardHolder'].invalid}">
+                                    <div *ngIf="f3['cardHolder']?.touched && f3['cardHolder']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cardHolder'].errors?.['required']">Card Holder is required </div>
+                                        <div class="text-danger" *ngIf="f3['cardHolder'].errors?.['pattern']">Card Holder must contain letters only</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form [formGroup]="netBankingForm" class="card-form">
+                            <div class="card-content">
+                                <div *ngIf="selectedFilterMethod  === 'Net Banking' && !showCardForm && showNetBankingForm"
+                                    class="form-group">
+                                    <input type="text" id="bankName" formControlName="bankName" placeholder="Bank Name"
+                                        [ngClass]="{'is-invalid': f4['bankName'].touched && f4['bankName'].invalid}">
+                                    <div *ngIf="f4['bankName']?.touched && f4['bankName']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f4['bankName'].errors?.['required']">Bank Name
+                                            is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f4['bankName'].errors?.['pattern']">Bank Name
+                                            must
+                                            contain
+                                            letters only</div>
+                                    </div>
+                                    <input type="text" id="accountNumber" formControlName="accountNumber"
+                                        placeholder="Account Number"
+                                        [ngClass]="{'is-invalid': f4['accountNumber'].touched && f4['accountNumber'].invalid}">
+                                    <div *ngIf="f4['accountNumber']?.touched && f4['accountNumber']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f4['accountNumber'].errors?.['required']">
+                                            Account Number is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f4['accountNumber'].errors?.['pattern']">Account
+                                            Number must
+                                            contain
+                                            9-18 digits</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <button type="submit" [disabled]="payForm.invalid">Pay</button>
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="showClaimForm" class="payment-form">
+                <form [formGroup]="claimForm" (ngSubmit)="onRegister()" class="claims-form">
+                    <div class="claims-register-header">
+                        <h2>Register Claim</h2>
+                    </div>
+                    <div class="claims-form-group">
+                        <p>Claim Date: {{ currentDate | date:'yyyy-MM-dd' }}</p>
+                        <label>Claim Amount</label>
+                        <input type="number" formControlName="claimAmount" placeholder="Claim Amount"
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': f1['claimAmount'].touched && f1['claimAmount'].invalid }">
+                        <div *ngIf="f1['claimAmount']?.touched && f1['claimAmount']?.invalid" class="invalid-feedback">
+                            <div class="text-danger" *ngIf="f1['claimAmount']?.errors?.['required']">Claim Amount is required</div>
+                            <div class="text-danger" *ngIf="f1['claimAmount'].errors?.['min']">Claim Amount must be a positive number</div>
+                        </div>
+                        <button type="submit" [disabled]="claimForm.invalid">Register Claim</button>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+        </div>
+        <div *ngIf="isAdminLoggedIn()">
+            <div *ngIf="showEditForm" class="edit-form">
+                <h2>Update Registered Policy</h2>
+                <form [formGroup]="editUPForm" (ngSubmit)="onSubmit()">
+                    <div>
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" formControlName="startDate">
+                        <div class="text-danger"
+                            *ngIf="editUPForm.controls['startDate'].invalid && editUPForm.controls['startDate'].touched">
+                            Start Date is required.</div>
+                    </div>
+                    <div>
+                        <label for="durationInYears">Duration In Years</label>
+                        <input type="number" id="durationInYears" formControlName="durationInYears">
+                        <div  class="text-danger"
+                            *ngIf="editUPForm.controls['durationInYears'].invalid && editUPForm.controls['durationInYears'].touched">
+                            Duration In Years is required.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="policyId">Policy Id</label>
+                        <input type="number" id="policyId" formControlName="policyId">
+                        <div  class="text-danger" *ngIf="editUPForm.controls['policyId'].invalid && editUPForm.controls['policyId'].touched">
+                            Policy Id is required.
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="editUPForm.invalid">Submit</button>
+                </form>
+            </div>
+
+            <div *ngIf="!showEditForm">
+                <div class="select-dropdown">
+                    <label for="filterMethod">Select Filter Method:</label>
+                    <select id="filterMethod" (change)="onFilterMethodChange($event)">
+                        <option value="">Select Filter Method</option>
+                        <option *ngIf="isAdminLoggedIn() || isUserLoggedIn()" value="getUserPolicyByUserPolicyId">Get
+                            UserPolicies By UserPolicy Id</option>
+                        <option *ngIf="isAdminLoggedIn() || isUserLoggedIn()" value="getUserPolicyByUserId">Get
+                            UserPolicies By UserId</option>
+                    </select>
+                    <div *ngIf="selectedFilterMethod === 'getUserPolicyByUserPolicyId'">
+                        <label for="userPolicyId">Enter User Policy Id:</label>
+                        <input type="number" id="userPolicyId" [(ngModel)]="userPolicyId"
+                            placeholder="Enter UserPolicy Id">
+                        <button (click)="onGetUserPolicyByUserPolicyId()">Search</button>
+                    </div>
+                    <div *ngIf="selectedFilterMethod === 'getUserPolicyByUserId'">
+                        <label for="userId">Enter User Id:</label>
+                        <input type="number" id="userId" [(ngModel)]="userId" placeholder="Enter UserId">
+                        <button (click)="onGetUserPolicyByUserId()">Search</button>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead class="thead">
+                        <tr>
+                            <th>UserPolicyId</th>
+                            <th>UserId</th>
+                            <th>Username</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Maturity Amount</th>
+                            <th>Duration(Years)</th>
+                            <th>PolicyId</th>
+                            <th>Policy Name</th>
+                            <th>Initial Deposit</th>
+                            <th>Term Period</th>
+                            <th>Term Amount</th>
+                            <th>Interest</th>
+                            <th>Edit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userPolicy of paginatedUserPolicies">
+                            <td>{{ userPolicy.userPolicyId }}</td>
+                            <td *ngIf="userPolicy.user">{{ userPolicy.user.userId }}</td>
+                            <td *ngIf="userPolicy.user">{{ userPolicy.user.emailAddress }}</td>
+                            <td>{{ userPolicy.startDate }}</td>
+                            <td>{{ userPolicy.endDate }}</td>
+                            <td>{{ userPolicy.maturityAmount }}</td>
+                            <td>{{ userPolicy.durationInYears }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.policyId }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.policyName }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.initialDeposit}}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.termPeriod }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.termAmount }}</td>
+                            <td *ngIf="userPolicy.policy">{{ userPolicy.policy.interest }}</td>
+                            <td><button type="button" (click)="editUserPolicy(userPolicy)"><img
+                                        src="../../../assets/edit.png" alt="Edit"></button>
+
+
+                            </td>
+
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button type="button" class="btn btn-sm" (click)="prevPage()"
+                        [disabled]="currentPage === 1">Previous</button>
+                    <span>{{ currentPage }} / {{ totalPages }}</span>
+                    <button type="button" class="btn btn-sm" (click)="nextPage()"
+                        [disabled]="currentPage === totalPages">Next</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

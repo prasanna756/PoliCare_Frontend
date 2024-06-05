@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="payments.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="payments-container">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png">
+            <div class="nav-buttons">
+                <button *ngIf="isAdminLoggedIn()"class="nav-button" routerLink="/explore-policies">Manage Policies</button>
+                <button *ngIf="isUserLoggedIn()"class="nav-button" routerLink="/explore-policies">Search Policies</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/admin-dashboard">Dashboard</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-dashboard">Dashboard</button>
+                <button class="nav-button" routerLink="/profile">Profile</button>
+            </div>
+        </nav>
+
+        <div class="filter-form">
+            <label>Filter By:</label>
+            <select [(ngModel)]="selectedFilter">
+                <option value="">Select Filter</option>
+                <option value="paymentId">Payment ID</option>
+                <option value="paymentDate">Payment Date</option>
+            </select>
+            <div *ngIf="selectedFilter === 'paymentId'">
+                <input type="number" placeholder="Enter Payment ID" [(ngModel)]="paymentId">
+            </div>
+            <div *ngIf="selectedFilter === 'paymentDate'">
+                <label for="paymentDate">Payment Date:</label>
+                <input type="date" id="paymentDate" name="paymentDate" [(ngModel)]="paymentDate">
+            </div>
+            <button (click)="searchPayments()">Search</button>
+        </div>
+
+
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>Payment Id</th>
+                    <th>Payment Date</th>
+                    <th>Payment Status</th>
+                    <th>Fine</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>User Policy Id</th>
+                    <th>Invoice</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let payment of paginatedPayments">
+                    <td>{{payment.paymentId}}</td>
+                    <td>{{payment.paymentDate}}</td>
+                    <td>{{payment.paymentStatus}}</td>
+                    <td>{{payment.fine}}</td>
+                    <td>{{payment.totalAmount}}</td>
+                    <td>{{payment.paymentMethod}}</td>
+                    <td *ngIf="payment.userPolicies">{{ payment.userPolicies.userPolicyId }}</td>
+                    <td> <button (click)="generatePDF(payment)" class="invoice-btn">View Invoice</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="pagination">
+            <button type="button" class="btn btn-sm" (click)="prevPage()"
+                [disabled]="currentPage === 1">Previous</button>
+            <span>{{ currentPage }} / {{ totalPages }}</span>
+            <button type="button" class="btn btn-sm" (click)="nextPage()"
+                [disabled]="currentPage === totalPages">Next</button>
+        </div>
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>

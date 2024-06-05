@@ -1,0 +1,318 @@
+*{
+  margin:0px;
+  padding: -5px;
+  box-sizing: border-box;
+  font-family: 'afacad';
+} 
+.body{
+  min-height: 100vh;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.registration-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: transparent;
+  background-image: url("../../../assets/policy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  margin: 0; 
+  border: none;
+  box-shadow: none;
+  height: auto; 
+}
+
+.users-form {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  margin-top: 2%; 
+  margin-left: 16%;
+  text-align: center;
+  position: relative;
+  text-align: center;
+
+}
+.details{
+  display:flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: space-around; /* Align items horizontally */
+  margin-bottom: 20px; /* Increase bottom margin */
+}
+.name{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom:5px;
+}
+.dob-pan{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom:5px;
+}
+.employee
+{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom:5px;
+}
+.sal-type{
+  display:flex;
+  justify-content: space-evenly;
+}
+.email-phone{
+  display:flex;
+  margin-bottom:5px;
+}
+.overview{
+  margin-top: 0px;
+  margin-bottom: -10px;
+  color: #4177d3;
+  font-size: 40px;
+}
+.pan{
+  margin-left:5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+.login-form-group select.login-form-control{
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+button[type="submit"] {
+  text-decoration:none;
+  margin-top: 10px;
+  font-size: 19px;
+  display: inline-block;
+  letter-spacing: 2px;
+  padding:12px 20px;
+  background-color: #1E55B3;
+  border-radius: 40px;
+  color:#FFFFFF;
+  border:none;
+}
+.navbar img{
+  margin-right: auto;
+  margin-top:2px;
+  width:180px;
+  height:45px;
+}
+/* .general-info{
+  margin-left: 0px;
+  
+} */
+/* .general-info h3{
+  margin-top: 0px;
+  margin-bottom:0px;
+  margin-left: 0px;
+  text-align: left;
+ 
+}
+.contact h3{
+  margin-top: 0px;
+  margin-bottom:0px;
+  margin-left: 58px;
+  text-align: left;
+} */
+h5{
+  color:#1E55B3;
+  margin-bottom: 5px;
+}
+.form-inline p{
+  margin-top: 0px;
+  margin-bottom:10px;
+  margin-left: 10px;
+  text-align:center;
+}
+/* .form-inline{
+  justify-content: left;
+} */
+/* .salary{
+  margin-left: 8px;
+}
+input[type="date"]{
+  margin-left: 9px;
+} */
+.type,
+.lname,
+.ename{
+  margin-left: 5px;
+}
+
+input[type="email"]{
+  margin-left: 58px;
+}
+.phone{
+  margin-right: 9px;
+  margin-left: 5px;
+}
+.password{
+  margin-top: 0px;
+}
+.pin-state,
+.street-city{
+  display:flex;
+  justify-content: space-evenly;
+  margin-left: 50px;
+  margin-bottom:5px;
+}
+
+.password-toggle-btn {
+  position: relative;
+  top: 12px;
+  right: 30px; 
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+ align-content: end;
+ /* left:175px; */
+ 
+}
+
+.nav-buttons {
+  font-family: 'afacad';
+  display: flex;
+  
+}
+
+.navbar-logo {
+  height: 45px;
+  width: 180px;
+}
+
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top:2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+footer {
+  background-color: transparent; 
+  color: #1E55B3; 
+  padding: 0px; 
+  text-align: center; 
+  position: fixed; 
+  width: 100%; 
+  bottom: 0; 
+}
+
+footer p {
+  margin: 0; 
+}
+
+@media only screen and (max-width: 1023px) {
+  .registration-container {
+    /* background-image: url("../../../assets/tab-background.png"); */
+    background-color: #c0ddf9;
+    background-image: none;
+    background-attachment: fixed; /* Fixed attachment to create parallax-like effect */
+    height: auto; 
+    min-height: 100vh;
+  }
+
+  .users-form {
+    margin-left: 45px;
+    width: 90%;
+    margin-top: 15%;
+}
+.details {
+  flex-direction: column; /* Stack items vertically on smaller screens */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 10px; /* Adjust bottom margin */
+}
+.navbar img {
+  margin-right: auto;
+}
+
+h5{
+  margin-top: 15px;
+}
+
+}
+
+@media only screen and (max-width: 710px) {
+  .registration-container {
+    /* background-image: url("../../../assets/phone-background.png");
+    background-attachment: fixed;  */
+    background-color: #c0ddf9;
+    background-image: none;
+    background-attachment: fixed; /* Fixed attachment to create parallax-like effect */
+    height: auto; 
+    min-height: 100vh;
+  }
+
+  .users-form {
+    width: 90%; /* Use a relative width for mobile */
+    margin: 10% auto 0; /* Center the form */
+    padding: 20px; /* Add padding */
+    
+  }
+
+  .details
+  {
+    flex-direction: column;
+    align-items: center; /* Center align items for mobile */
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  .login-form-group select.login-form-control {
+    width: 100%; /* Make input fields take full width */
+    margin: 0 0 10px 0; /* Add margin to the bottom */
+  }
+  .password{
+    width:55% !important;
+    margin-left: 25%;
+  }
+  .street-city,
+  .pin-state{
+    margin-left: -1%;
+    width: 100%;
+    justify-content: space-evenly;
+    display: flex;
+    gap: 5px;
+  }
+
+  /* Adjust your navbar logo size if needed */
+  .navbar img {
+    width: 100px; /* Adjust the logo size for mobile if necessary */
+    height: 25px;
+  }
+  button.password-toggle-btn img{
+    margin-top: -600%;
+    margin-left: 700%;
+  }
+
+
+}
+

@@ -1,0 +1,439 @@
+*{
+  margin:0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'afacad';
+} 
+.explore-policies-container{
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  background-image: url("../../../assets/policy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  justify-content: center; 
+  align-items: center; 
+}
+.nav-buttons {
+  font-family: 'afacad';
+  display: flex;
+  
+}
+
+.navbar img{
+  margin-right: auto;
+  margin-top:2px;
+  width:180px;
+  height:45px;
+}
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top:2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+
+footer {
+  background-color: transparent; 
+  color: #1E55B3; 
+  padding: 0px; 
+  text-align: center; 
+  position: fixed; 
+  width: 100%; 
+  bottom: 0; 
+}
+
+footer p {
+  margin: 0; 
+}
+.tbody tr td button img{
+  width: 20px;
+  height: 20px;
+  margin:0
+
+}
+table tbody tr td button{
+  background-color: transparent;
+  border:none;
+  width: 20px;
+  height: 20px;
+  margin:0
+
+}
+.search-table{
+  margin-top: 25px;
+  justify-content: center;
+}
+table{
+  background-color:  rgba(255, 255, 255, 0.8);
+  width: 95%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0; 
+  border-radius: 10px;
+ 
+}
+
+
+
+th, td {
+  border: 1px solid rgba(0, 0, 0, 0.214);
+  padding: 8px;
+  text-align: left;
+}
+
+
+th:first-child,
+td:first-child {
+  border-left: none;
+}
+
+th:last-child,
+td:last-child {
+  border-right: none; 
+}
+
+th{
+  border-top: none;
+}
+
+td{
+  border-bottom: none;
+}
+
+
+.select-dropdown {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding-left: 20px; 
+  margin-top: 10px;
+  color: #333; 
+  margin-right: 10px; 
+  
+
+}
+select {
+  justify-content: center;
+  padding: 10px 20px; 
+  font-size: 1rem; 
+  border: 2px solid #1E55B3; 
+  border-radius: 5px;
+  background-color:rgba(255, 255, 255, 0.8);  
+  appearance: none; 
+  background-image: url('../../../assets/caret-down.png');
+  background-repeat: no-repeat;
+  background-position: right 5px center; 
+  background-size: 20px; 
+}
+
+
+
+.select-dropdown select,
+.select-dropdown input[type="text"],
+.select-dropdown input[type="number"] {
+  padding: 10px 20px;
+  font-family: 'Afacad';
+  font-size: 1rem;
+  border: 2px solid #1E55B3;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  appearance: none;
+}
+
+.select-dropdown select:focus,
+.select-dropdown select:hover,
+.select-dropdown input[type="text"]:focus,
+.select-dropdown input[type="text"]:hover,
+.select-dropdown input[type="number"]:focus,
+.select-dropdown input[type="number"]:hover {
+  outline: none;
+  background-color: #fff;
+}
+
+.select-dropdown select:active,
+.select-dropdown select:checked,
+.select-dropdown input[type="text"]:active,
+.select-dropdown input[type="text"]:checked,
+.select-dropdown input[type="number"]:active,
+.select-dropdown input[type="number"]:checked {
+  background-color: #fff;
+}
+
+.select-dropdown select option {
+  background-color: #fff;
+  color: #333;
+}
+
+.select-dropdown button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #1E55B3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Afacad', sans-serif;
+  font-size: 1rem;
+  margin-top: 10px; 
+}
+
+.pagination{
+  justify-content: end;
+}
+
+table tbody tr td button.buy-btn {
+  background-color:#1E55B3;
+  color: #fff;
+  padding: 0px 5px 25px 5px; 
+  text-align: center; 
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.buy-form {
+  background-color: rgba(255, 255, 255, 0.582); 
+  padding: 20px; 
+  border-radius: 10px; 
+  width: 300px; 
+  margin: 0px 550px;
+  text-align: center;
+}
+
+.buy-form h4 {
+  text-align: center; 
+  color: #1E55B3; 
+  margin-bottom: 15px;
+}
+
+.buy-form label,
+.policiesForm label {
+  font-weight: bold; 
+} 
+
+
+.buy-form input[type="number"] {
+  padding: 8px; 
+  border-radius: 5px; 
+  border: 1px solid #1E55B3; 
+  margin-bottom: 5px;
+  width:195px;
+}
+
+
+.buy-form input[type="number"]:focus {
+  outline: none; 
+  border-color: #114194; 
+}
+
+.buy-form button[type="submit"] {
+  padding: 10px 20px; 
+  background-color: #1E55B3; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; 
+  margin-top: 10px; 
+ 
+}
+
+.buy-form button[type="submit"]:hover {
+  background-color: #114194; 
+}
+
+
+.registerForm,
+.policiesForm {
+  background-color: rgba(255, 255, 255, 0.74); 
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%; 
+  max-width: 600px; 
+  margin: auto;
+  box-sizing: border-box;
+  box-shadow: #333333e3;
+} 
+
+form {
+  text-align: center; 
+}
+
+ .overview h3 {
+  margin-bottom: 20px;
+  color: #1E55B3;
+  margin-top: 0;
+  text-align: center; 
+} 
+
+.registerForm,
+.policiesForm {
+  margin-top: 5%;
+}
+
+.registerForm .details
+ {
+  display: flex;
+  flex-direction: column;
+}
+.policiesForm.details{
+  display: flex;
+  flex-direction: column;
+}
+
+.registerForm .details .row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.policiesForm .details .row
+{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.registerForm .details .row > div,
+.policiesForm .details .row > div{
+  flex: 1;
+  margin-right: 20px;
+}
+
+.registerForm .details .row > div:last-child,
+.policiesForm .details .row > div:last-child {
+  margin-right: 0;
+}
+
+.registerForm .details input,
+.registerForm .details select,
+.registerForm .details textarea,
+.policiesForm .details input,
+.policiesForm .details select,
+.policiesForm .details textarea{
+  width: 100%;
+  padding: 10px;
+  font-family: 'Afacad', sans-serif;
+  font-size: 1rem;
+  border: 1px solid #1E55B3;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.registerForm .details .policy-description,
+.policiesForm .details .policy-description {
+  flex: 1;
+}
+
+.registerForm .policy-submit
+.policiesForm .policy-submit {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.registerForm .policy-submit button,
+.policiesForm .policy-submit button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #1E55B3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.registerForm .policy-submit button:hover,
+.policiesForm .policy-submit button:hover{
+  background-color: #142985;
+}
+.card-content input[type="text"] {
+  width: 75%;
+  padding: 5px;
+  font-family: 'Afacad', sans-serif;
+  font-size: 1rem;
+  border: 1px solid #1E55B3;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 5px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .explore-policies-container {
+    background-image: url("../../../assets/tab-background.png");
+    height: auto;
+    min-height: 100vh;
+  }
+  th,
+  td {
+    padding: 6px;
+    font-size: 14px;
+  }
+  .registerForm,
+.policiesForm {
+  margin-top: 30%;
+} 
+}
+@media only screen and (max-width: 710px) {
+  .explore-policies-container {
+    background-color: #c0ddf9;
+    background-image: none;
+    background-attachment: fixed;
+  }
+  .explore-policies-container table {
+    table-layout: fixed;
+    /* overflow-x: auto; */
+  }
+  th,
+  td {
+    padding: 2px;
+    font-size: 7px;
+  }
+  .navbar img {
+    width: 100px; /* Adjust the logo size for mobile if necessary */
+    height: 25px;
+  }
+  .nav-button{
+    padding: 3px 5px;
+    align-items: right;
+    
+  }
+  .tbody tr td button img{
+    width: 10px;
+    height: 10px;
+    margin:0
+  
+  }
+  table tbody tr td button{
+    background-color: transparent;
+    border:none;
+    width: 10px;
+    height: 10px;
+    margin:0
+  
+  }
+  table tbody tr td button.buy-btn {
+    padding: 0px 5px 5px 5px; 
+    text-align: center; 
+  }
+  .policiesForm{
+    margin-top: 5%;
+  }
+}

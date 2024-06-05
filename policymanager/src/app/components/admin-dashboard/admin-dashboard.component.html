@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="admin-dashboard">
+        <nav class="navbar">
+            <img src="..\..\..\assets\logo-no-background.png">
+            <div class="nav-buttons">
+                <!-- <button class="nav-button" routerLink="/explore-policies">Search Policies</button>
+                    <button class="nav-button" routerLink="/profile">Profile</button>
+                    <button class="nav-button" routerLink="/user-policies">MyPolicies</button>
+                    <button class="nav-button" routerLink="/manage-users">Manage Users</button> -->
+                <button (click)="logoutUser()" *ngIf="loggedIn" class="nav-button">Logout</button>
+            </div>
+        </nav>
+        <div class="admin-dashboard-buttons">
+            <div class="admin-dashboard-buttons1">
+                <button class="admin-button" routerLink="/explore-policies">Manage Policies</button>
+                <button class="admin-button" routerLink="/user-policies">Manage Registered Policies</button>
+                <button class="admin-button" routerLink="/manage-users">Manage Users</button>
+            </div>
+            <div class="admin-dashboard-buttons2">
+                <button class="admin-button" routerLink="/payments">Payments</button>
+                <button class="admin-button" routerLink="/claims">Claims</button>
+                <button class="admin-button" routerLink="/profile">Profile</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

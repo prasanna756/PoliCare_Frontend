@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="login-container">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png" alt="Logo" class="navbar-logo">
+            <div class="nav-buttons">
+                <button class="nav-button" routerLink="/explore-policies">Search Policies</button>
+                <button class="nav-button" routerLink="/">Home</button>
+            </div>
+        </nav>
+            <form [formGroup]="loginForm" (ngSubmit)="readFormData()">
+
+                <div class="login-form">
+                    <h2>LOGIN</h2>
+                    <p>Please enter your Email id and password!</p>
+
+                    <input type="email" formControlName="email" placeholder="Email"
+                        [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }">
+                    <div *ngIf="f['email']?.touched && f['email']?.invalid" class="invalid-feedback">
+                        <div *ngIf="f['email']?.errors?.['required']">Email is required</div>
+                        <div *ngIf="f['email']?.errors?.['email']">Invalid Email Address</div>
+                    </div>
+
+                    <div class="password-input-container">
+                        <input type="{{ showPassword ? 'text' : 'password' }}" formControlName="password"
+                            placeholder="Password"
+                            [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].invalid }">
+                        <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()">
+                            <img src="assets/{{ showPassword ? 'eye_icon.png' : 'closed_eye.png' }}"
+                                alt="Toggle Password Visibility" width="15" height="15">
+                        </button>
+                    </div>
+                    <div *ngIf="f['password']?.touched && f['password']?.invalid" class="invalid-feedback">
+                        <div *ngIf="f['password']?.errors?.['required']">Password is required</div>
+                    </div>
+
+
+                    <button class="login-btn" type="submit" [disabled]="loginForm.invalid">Login</button>
+                    <div class="forgot-password"><a routerLink="/forgot-password">Forgot Password?</a></div>
+                    <div class="register-link">Don't have an account? <a routerLink="/registration">Register</a></div>
+                </div>
+            </form>
+
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>
+</body>

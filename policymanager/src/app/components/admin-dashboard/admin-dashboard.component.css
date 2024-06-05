@@ -1,0 +1,191 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'afacad';
+}
+
+.admin-dashboard {
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  background-image: url("../../../assets/policy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-buttons {
+  font-family: 'afacad';
+  display: flex;
+
+}
+
+.navbar img {
+  margin-right: auto;
+  margin-top: 2px;
+  width: 180px;
+  height: 45px;
+}
+
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+
+
+.logout-button {
+  background: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 2px;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.logout-button:hover {
+  background-color: #114194;
+}
+
+
+.nav-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 2px;
+  padding: 10px 20px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 15px;
+}
+
+.nav-button:hover {
+  background-color: #114194;
+}
+
+
+footer {
+  background-color: transparent;
+  color: #1E55B3;
+  padding: 0px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+.admin-button {
+  margin-left: 120px;
+  margin-right: 10px;
+  transform: translate(25%, 50%);
+  padding: 20px 30px;
+  background-color: #1E55B3;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'afacad';
+  font-size: 25px;
+  width: 250px;
+  height: 150px;
+
+}
+
+.admin-dashboard-buttons1 {
+  display: flex;
+  margin-bottom: 75px;
+
+}
+
+.admin-dashboard-buttons2 {
+  display: flex;
+}
+
+@media only screen and (max-width: 1024px) {
+  .admin-dashboard {
+    background-image: url("../../../assets/tab-background.png");
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .admin-dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25% 25%;
+    margin-left: 15%;
+}
+.admin-dashboard-buttons1 {
+  margin-bottom: 10%;
+
+}
+  .admin-button {
+    margin: 10px 10px;
+    padding: 0px ;
+    width: 200px;
+  height: 150px;
+  
+  }
+}
+
+@media only screen and (max-width: 710px) {
+  .admin-dashboard {
+    background-image: url("../../../assets/phone-background.png");
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .navbar img {
+    margin-right: auto;
+    width: 100px;
+    height: 25px;
+  }
+  .admin-dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 45% 25%;
+    margin-left: 15%;
+}
+.admin-dashboard-buttons1 {
+  margin-bottom: 10%;
+
+}
+  .admin-button {
+    width: 100px;
+    height: 100px;
+    font-size: 100%;
+  }
+}

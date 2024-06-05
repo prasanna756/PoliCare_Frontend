@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Policies</title>
+    <link rel="stylesheet" href="explore-policies.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="explore-policies-container">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png">
+            <div class="nav-buttons">
+
+
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-policies">My Policies</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/user-policies">Manage Registered
+                    Policies</button>
+                <button *ngIf="(!isUserLoggedIn() && !isAdminLoggedIn())" class="nav-button"
+                    routerLink="/login">Login</button>
+                <button *ngIf="(!isUserLoggedIn() && !isAdminLoggedIn())" class="nav-button"
+                    routerLink="/registration">Register</button>
+                <button *ngIf="(!isUserLoggedIn() && !isAdminLoggedIn())" class="nav-button"
+                    routerLink="/">Home</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" (click)="toggleFormVisibility() ">Add New
+                    Policy</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/admin-dashboard">Dashboard</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-dashboard">Dashboard</button>
+                <button *ngIf="isAdminLoggedIn() || isUserLoggedIn()" class="nav-button"
+                    routerLink="/profile">Profile</button>
+                <button (click)="logoutUser()" *ngIf="isLoggedIn()" class="nav-button">Logout</button>
+
+            </div>
+        </nav>
+        <h3 *ngIf="(!isUserLoggedIn() && !isAdminLoggedIn())"
+            style="color: #1E55B3; padding-top: 15px; text-align: center; margin-bottom: 10px;"> Log in to Buy Now!</h3>
+        <div *ngIf="!showForm && !showBuyForm && isEdit" class="policiesForm">
+            <form [formGroup]="policiesForm" (ngSubmit)="onUpdate()">
+                <div class="overview">
+                    <h3>Edit Details</h3>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="policy-name">
+                            <label for="policyName">Policy Name: </label>
+                            <input type="text" formControlName="policyName" placeholder="Policy Name"
+                                [ngClass]="{'is-invalid':f['policyName'].touched && f['policyName'].invalid}">
+                            <div *ngIf="f['policyName']?.touched && f['policyName']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f['policyName']?.errors?.['required']">Policy Name is required</div>
+                            </div>
+                        </div>
+
+                        <div class="policy-company">
+                            <label for="company">Company: </label>
+                            <input type="text" formControlName="company" placeholder="Company"
+                                [ngClass]="{'is-invalid':f['company'].touched && f['company'].invalid}">
+                            <div *ngIf="f['company']?.touched && f['company']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f['company']?.errors?.['required']">company is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="policy-type">
+                            <label for="policyType">Policy Type: </label>
+                            <select id="policyType" formControlName="policyType"
+                                [ngClass]="{'is-invalid': f['policyType'].touched && f['policyType'].invalid}" required>
+                                <option value="">Select Policy Type</option>
+                                <option value="Vehicle Insurance">Vehicle Insurance</option>
+                                <option value="Travel Insurance">Travel Insurance</option>
+                                <option value="Life Insurance">Life Insurance</option>
+                                <option value="Health Insurance">Health Insurance</option>
+                                <option value="Child Plans">Child Plans</option>
+                                <option value="Retirement Plans">Retirement Plans</option>
+                            </select>
+                            <div *ngIf="f['policyType']?.touched && f['policyType']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f['policyType']?.errors?.['required']">policy Type is required</div>
+                            </div>
+                        </div>
+                        <div class="term-period">
+                            <div class="form-group">
+                                <label for="termPeriod">Term Period</label>
+                                <select id="termPeriod" formControlName="termPeriod" required>
+                                    <option value="">Select Term Period</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half-Yearly">Half-Yearly</option>
+                                    <option value="Annually">Annually</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="initial-deposit">
+                            <label for="initialDeposit">Initial Deposit</label>
+                            <input type="number" formControlName="initialDeposit" placeholder="Initial Deposit "
+                                [ngClass]="{'is-invalid':f['initialDeposit'].touched && f['initialDeposit'].invalid}">
+                            <div *ngIf="f['initialDeposit']?.touched && f['initialDeposit']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f['initialDeposit']?.errors?.['required']">Initial Deposit is required</div>
+                                <div *ngIf="f['initialDeposit']?.errors?.['min']">Intial Deposit must be Positive</div>
+                            </div>
+                        </div>
+
+                        <div class="term-amount">
+                            <label for="termAmount">Term Amount</label>
+                            <input type="number" formControlName="termAmount" placeholder="Term Amount "
+                                [ngClass]="{'is-invalid':f['termAmount'].touched && f['termAmount'].invalid}">
+                            <div *ngIf="f['termAmount']?.touched && f['termAmount']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f['termAmount']?.errors?.['required']">Term Amount is required</div>
+                                <div *ngIf="f['termAmount']?.errors?.['min']">Term Amount should be Positive</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="interest">
+                            <label for="interest">Interest</label>
+                            <input type="number" formControlName="interest" placeholder="Interest "
+                                [ngClass]="{'is-invalid':f['termAmount'].touched && f['termAmount'].invalid}">
+                            <div *ngIf="f['interest']?.touched && f['interest']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f['interest']?.errors?.['required']">Interest is required</div>
+                                <div *ngIf="f['interest']?.errors?.['min']">Interest should be Positive</div>
+                            </div>
+                        </div>
+                        <div class="eligible-usertypes">
+                            <label for="eligibleUserTypes">Eligible Types</label>
+                            <input id="eligibleUserTypes" formControlName="eligibleUserTypes" type="text"
+                                placeholder="Enter Eligible UserTypes"
+                                [ngClass]="{'is-invalid': f['eligibleUserTypes'].touched && f['eligibleUserTypes'].invalid}">
+                            <div *ngIf="f['eligibleUserTypes']?.touched && f['eligibleUserTypes']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f['eligibleUserTypes']?.errors?.['required']">Eligible UserTypes are
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="policy-description">
+                        <label for="policyDescription">Policy Description</label>
+                        <textarea formControlName="policyDescription" placeholder="Policy Description"
+                            [ngClass]="{'is-invalid':f2['policyDescription'].touched && f2['policyDescription'].invalid}"></textarea>
+                        <div *ngIf="f2['policyDescription']?.touched && f2['policyDescription']?.invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="f2['policyDescription']?.errors?.['required']">Description is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="policy-submit">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
+
+        </div>
+        <div *ngIf="!showForm && showBuyForm && !isEdit" class="buy-form">
+            <h4>Register for Policy</h4>
+            <form [formGroup]="buyForm" (ngSubmit)="onBuyPolicy()">
+                <strong>Start Date: {{ currentDate | date:'yyyy-MM-dd' }}</strong><br>
+                <strong>Initial Deposit: {{policy.initialDeposit| currency:'INR' }}</strong>
+                <div class="form-group">
+                    <input type="number" id="durationInYears" placeholder="Duration (in years)"
+                        formControlName="durationInYears">
+                    <div *ngIf="f1['durationInYears'].invalid && f1['durationInYears'].touched" class="text-danger">
+                        Duration is required.
+                    </div>
+                </div>
+                <select formControlName="paymentMethod" class="payment-form-control"
+                            (change)="onPaymentMethodChange($event)"
+                            [ngClass]="{ 'is-invalid': f1['paymentMethod'].touched && f1['paymentMethod'].invalid }">
+
+                            <option value="">Select Payment Method</option>
+                            <option value="Card">Credit/Debit Card</option>
+                            <option value="Net Banking">Net Banking</option>
+                        </select>
+                        <div *ngIf="f1['paymentMethod']?.touched && f1['paymentMethod']?.invalid"
+                            class="invalid-feedback">
+                            <div class="text-danger" *ngIf="f1['paymentMethod'].errors?.['required']">Payment Method is
+                                required</div>
+                        </div><br>
+                        <form [formGroup]="cardForm" class="card-form">
+                            <div class="card-content">
+                                <div *ngIf="selectedFilterMethod === 'Card' && showCardForm" class="form-group">
+                                    <input type="text" id="cardNumber" formControlName="cardNumber"
+                                        placeholder="Card Number"
+                                        [ngClass]="{'is-invalid': f3['cardNumber'].touched && f3['cardNumber'].invalid}">
+                                    <div *ngIf="f3['cardNumber']?.touched && f3['cardNumber']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cardNumber'].errors?.['required']">Card
+                                            Number is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f3['cardNumber'].errors?.['pattern']">Card
+                                            Number must
+                                            contain
+                                            16 digits</div>
+                                    </div>
+                                    <input type="text" id="expiryDate" formControlName="expiryDate"
+                                        placeholder="Expiry Date (MM/YYYY)"
+                                        [ngClass]="{'is-invalid': f3['expiryDate'].touched && f3['expiryDate'].invalid}">
+                                    <div *ngIf="f3['expiryDate']?.touched && f3['expiryDate']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['expiryDate'].errors?.['required']">Expiry
+                                            Date is
+                                            required</div>
+                                        <div class="text-danger" *ngIf="f3['expiryDate'].errors?.['pattern']">Expiry
+                                            date must
+                                            be in
+                                            MM/YYYY format.</div>
+                                    </div>
+
+                                    <input type="text" id="cvv" formControlName="cvv" placeholder="CVV"
+                                        [ngClass]="{'is-invalid': f3['cvv'].touched && f3['cvv'].invalid}">
+                                    <div *ngIf="f3['cvv']?.touched && f3['cvv']?.invalid" class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cvv'].errors?.['required']">CVV is required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f3['cvv'].errors?.['pattern']">CVV must contain
+                                            3 digits
+                                        </div>
+                                    </div>
+
+                                    <input type="text" id="cardHolder" formControlName="cardHolder"
+                                        placeholder="Card Holder"
+                                        [ngClass]="{'is-invalid': f3['cardHolder'].touched && f3['cardHolder'].invalid}">
+                                    <div *ngIf="f3['cardHolder']?.touched && f3['cardHolder']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f3['cardHolder'].errors?.['required']">Card Holder is required </div>
+                                        <div class="text-danger" *ngIf="f3['cardHolder'].errors?.['pattern']">Card Holder must contain letters only</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form [formGroup]="netBankingForm" class="card-form">
+                            <div class="card-content">
+                                <div *ngIf="selectedFilterMethod  === 'Net Banking' && !showCardForm && showNetBankingForm"
+                                    class="form-group">
+                                    <input type="text" id="bankName" formControlName="bankName" placeholder="Bank Name"
+                                        [ngClass]="{'is-invalid': f4['bankName'].touched && f4['bankName'].invalid}">
+                                    <div *ngIf="f4['bankName']?.touched && f4['bankName']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f4['bankName'].errors?.['required']">Bank Name
+                                            is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f4['bankName'].errors?.['pattern']">Bank Name
+                                            must
+                                            contain
+                                            letters only</div>
+                                    </div>
+                                    <input type="text" id="accountNumber" formControlName="accountNumber"
+                                        placeholder="Account Number"
+                                        [ngClass]="{'is-invalid': f4['accountNumber'].touched && f4['accountNumber'].invalid}">
+                                    <div *ngIf="f4['accountNumber']?.touched && f4['accountNumber']?.invalid"
+                                        class="invalid-feedback">
+                                        <div class="text-danger" *ngIf="f4['accountNumber'].errors?.['required']">
+                                            Account Number is
+                                            required
+                                        </div>
+                                        <div class="text-danger" *ngIf="f4['accountNumber'].errors?.['pattern']">Account
+                                            Number must
+                                            contain
+                                            9-18 digits</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                <button type="submit" [disabled]="buyForm.invalid">Submit</button>
+            </form>
+        </div>
+
+
+        <div class="select-dropdown" *ngIf="!showForm && !showBuyForm && !isEdit">
+            <select id="filterMethod" (change)="onFilterMethodChange($event)">
+                <option value="">Select Filter Method</option>
+                <option value="getPolicyByPolicyType">Get Policies By Policy Type</option>
+                <option *ngIf="isAdminLoggedIn() || isUserLoggedIn()" value="getPoliciesByCompany">Get Policies By
+                    Company</option>
+                <option *ngIf="isAdminLoggedIn() || isUserLoggedIn()" value="getByAmountGreaterThan">Get
+                    Policies By
+                    Amount Greater Than</option>
+                <option *ngIf="isAdminLoggedIn() || isUserLoggedIn()" value="getByAmountLessThan">Get Policies
+                    By
+                    Amount Less Than</option>
+            </select>
+            <div *ngIf="selectedFilterMethod === 'getPolicyByPolicyType'">
+                <select id="policyType" (change)="onPolicyTypeChange($event)">
+                    <option value="">Select Policy Type</option>
+                    <option value="Vehicle Insurance">Vehicle Insurance</option>
+                    <option value="Travel Insurance">Travel Insurance</option>
+                    <option value="Life insurance">Life insurance</option>
+                    <option value="Health Insurance">Health Insurance</option>
+                    <option value="Child Plans">Child Plans</option>
+                    <option value="Retirement Plans">Retirement Plans</option>
+                </select>
+            </div>
+
+            <div *ngIf="selectedFilterMethod === 'getPoliciesByCompany'">
+                <label for="company">Enter Company Name:</label>
+                <input type="text" id="company" [(ngModel)]="company" placeholder="Enter company name">
+                <button (click)="onGetPoliciesByCompany()">Search</button>
+            </div>
+
+            <div *ngIf="selectedFilterMethod === 'getByAmountGreaterThan'">
+                <label for="greaterThanAmount">Enter Amount Greater Than:</label>
+                <input type="number" id="greaterThanAmount" [(ngModel)]="greaterThanAmount" placeholder="Enter amount">
+                <button (click)="onGetPoliciesByAmountGreaterThan()">Search</button>
+            </div>
+            <div *ngIf="selectedFilterMethod === 'getByAmountLessThan'">
+                <label for="lessThanAmount">Enter Amount Less Than:</label>
+                <input type="number" id="lessThanAmount" [(ngModel)]="lessThanAmount" placeholder="Enter amount">
+                <button (click)="onGetPoliciesByAmountLessThan()">Search</button>
+            </div>
+        </div>
+
+
+        <div *ngIf=" !showForm && !showBuyForm && !isEdit" class="search-table">
+            <table>
+                <thead class="thead">
+                    <tr>
+                        <th>Policy Id</th>
+                        <th>Policy Name</th>
+                        <th>Description</th>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>Initial Deposit</th>
+                        <th>Term Period</th>
+                        <th>Term Amount</th>
+                        <th>Interest</th>
+                        <th>Eligible Employer Types</th>
+
+                        <th *ngIf="isUserLoggedIn()">Buy Now</th>
+                        <th *ngIf="isAdminLoggedIn()">Edit</th>
+                        <th *ngIf="isAdminLoggedIn()">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr *ngFor="let policy of paginatedPolicies">
+                        <td>{{policy.policyId}}</td>
+                        <td>{{policy.policyName}}</td>
+                        <td>{{policy.policyDescription}}</td>
+                        <td>{{policy.company}}</td>
+                        <td>{{policy.policyType}}</td>
+                        <td>{{policy.initialDeposit}}</td>
+                        <td>{{policy.termPeriod}}</td>
+                        <td>{{policy.termAmount}}</td>
+                        <td>{{policy.interest}}</td>
+                        <td>{{policy.eligibleUserTypes}}</td>
+
+
+                        <td *ngIf="isUserLoggedIn()"><button type="button" class="buy-btn"
+                                (click)="buyPolicy(policy)">Buy</button></td>
+                        <td *ngIf="isAdminLoggedIn()" (click)="updatePolicy(policy)"><button type="button"><img
+                                    src="../../../assets/edit.png" alt="Edit"></button>
+                        </td>
+                        <td *ngIf="isAdminLoggedIn()" (click)="deletePolicy(policy.policyId)"><button><img
+                                    src="../../../assets/delete.png" alt="Delete"></button>
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <div class="pagination">
+                <button type="button" class="btn btn-sm" (click)="prevPage()"
+                    [disabled]="currentPage === 1">Previous</button>
+                <span>{{ currentPage }} / {{ totalPages }}</span>
+                <button type="button" class="btn btn-sm" (click)="nextPage()"
+                    [disabled]="currentPage === totalPages">Next</button>
+            </div>
+        </div>
+
+        <div *ngIf="showForm && !showBuyForm && !isEdit" class="registerForm">
+            <form [formGroup]="registerForm" (ngSubmit)="onAdding()">
+                <div class="overview">
+                    <h3>Add New Policy</h3>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="policy-name">
+                            <input type="text" formControlName="policyName" placeholder="Policy Name"
+                                [ngClass]="{'is-invalid':f2['policyName'].touched && f2['policyName'].invalid}">
+                            <div *ngIf="f2['policyName']?.touched && f2['policyName']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f2['policyName']?.errors?.['required']">Policy Name is required</div>
+                            </div>
+                        </div>
+                        <div class="policy-company">
+                            <input type="text" formControlName="company" placeholder="Company"
+                                [ngClass]="{'is-invalid':f2['company'].touched && f2['company'].invalid}">
+                            <div *ngIf="f2['company']?.touched && f2['company']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f2['company']?.errors?.['required']">company is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="policy-type">
+                            <div class="form-group">
+                                <select id="policyType" formControlName="policyType"
+                                    [ngClass]="{'is-invalid': f2['policyType'].touched && f2['policyType'].invalid}"
+                                    required>
+                                    <option value="">Select Policy Type</option>
+                                    <option value="Vehicle Insurance">Vehicle Insurance</option>
+                                    <option value="Travel Insurance">Travel Insurance</option>
+                                    <option value="Life Insurance">Life Insurance</option>
+                                    <option value="Health Insurance">Health Insurance</option>
+                                    <option value="Child Plans">Child Plans</option>
+                                    <option value="Retirement Plans">Retirement Plans</option>
+                                </select>
+                                <div *ngIf="f2['policyType']?.touched && f2['policyType']?.invalid"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f2['policyType']?.errors?.['required']">Policy Type is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="term-period">
+                            <div class="form-group">
+
+                                <select id="termPeriod" formControlName="termPeriod"
+                                    [ngClass]="{'is-invalid': f2['termPeriod'].touched && f2['termPeriod'].invalid}"
+                                    required>
+                                    <option value="">Select Term Period</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half-Yearly">Half-Yearly</option>
+                                    <option value="Annually">Annually</option>
+                                </select>
+                                <div *ngIf="f2['termPeriod']?.touched && f2['termPeriod']?.invalid"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f2['termPeriod']?.errors?.['required']">Term Period is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="initial-deposit">
+                            <input type="text" formControlName="initialDeposit" placeholder="Initial Deposit "
+                                onfocus="this.type='number'" onblur="this.type='text'"
+                                [ngClass]="{'is-invalid':f2['initialDeposit'].touched && f2['initialDeposit'].invalid}">
+                            <div *ngIf="f2['initialDeposit']?.touched && f2['initialDeposit']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f2['initialDeposit']?.errors?.['required']">Initial Deposit is
+                                    required</div>
+                                <div *ngIf="f2['initialDeposit']?.errors?.['min']">Intial Deposit must be
+                                    Positive</div>
+                            </div>
+                        </div>
+                        <div class="term-amount">
+                            <input type="number" formControlName="termAmount" placeholder="Term Amount "
+                                [ngClass]="{'is-invalid':f2['termAmount'].touched && f2['termAmount'].invalid}">
+                            <div *ngIf="f2['termAmount']?.touched && f2['termAmount']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f2['termAmount']?.errors?.['required']">Term Amount is required
+                                </div>
+                                <div *ngIf="f2['termAmount']?.errors?.['min']">Term Amount should be Positive
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="interest">
+                            <input type="number" formControlName="interest" placeholder="Interest "
+                                [ngClass]="{'is-invalid':f2['termAmount'].touched && f2['termAmount'].invalid}">
+                            <div *ngIf="f2['interest']?.touched && f2['interest']?.invalid" class="invalid-feedback">
+                                <div *ngIf="f2['interest']?.errors?.['required']">Interest is required</div>
+                                <div *ngIf="f2['interest']?.errors?.['min']">Interest should be Positive</div>
+                            </div>
+                        </div>
+                        <div class="eligible-usertypes">
+                            <input id="eligibleUserTypes" formControlName="eligibleUserTypes" type="text"
+                                placeholder="Enter Eligible UserTypes"
+                                [ngClass]="{'is-invalid': f2['eligibleUserTypes'].touched && f2['eligibleUserTypes'].invalid}">
+                            <div *ngIf="f2['eligibleUserTypes']?.touched && f2['eligibleUserTypes']?.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="f2['eligibleUserTypes']?.errors?.['required']">Eligible
+                                    UserTypes are required
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="policy-description">
+                        <textarea formControlName="policyDescription" placeholder="Policy Description"
+                            [ngClass]="{'is-invalid':f2['policyDescription'].touched && f2['policyDescription'].invalid}"></textarea>
+                        <div *ngIf="f2['policyDescription']?.touched && f2['policyDescription']?.invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="f2['policyDescription']?.errors?.['required']">Description is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="policy-submit">
+                    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <footer>
+        <p>&copy; 2024 PoliCare. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

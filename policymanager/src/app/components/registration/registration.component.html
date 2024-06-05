@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="registration.component.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="registration-container">
+    <nav class="navbar">
+      <img src="\assets\logo-no-background.png">
+      <div class="nav-buttons">
+        <button class="nav-button" routerLink="/policies">Search Policies</button>
+        <button class="nav-button" routerLink="/">Home</button>
+      </div>
+    </nav>
+    <form [formGroup]="usersForm" (ngSubmit)="onSubmit()" class="users-form">
+      <div class="overview">
+        <h3>Create Account</h3>
+      </div>
+
+      <div class="details">
+        <div class="general-info">
+          <h5>General Information</h5>
+          <div class="name">
+            <!-- Example of displaying error messages only if form fields are touched or dirty -->
+            <div class="login-form-group">
+              <input type="text" formControlName="firstName" placeholder="First Name" class="login-form-control"
+                [ngClass]="{ 'is-invalid': f['firstName'].touched && f['firstName'].invalid }">
+              <div *ngIf="f['firstName']?.touched && f['firstName']?.invalid" class="invalid-feedback">
+                <div *ngIf="f['firstName']?.errors?.['required']">First Name is required</div>
+                <div *ngIf="f['firstName']?.errors?.['pattern']">First Name can only contain alphabets and spaces</div>
+              </div>
+            </div>
+            <div class="lname">
+              <div class="login-form-group">
+                <input type="text" formControlName="lastName" placeholder="Last Name" class="login-form-control"
+                  [ngClass]="{ 'is-invalid': f['lastName'].touched && f['lastName'].invalid }">
+                <div *ngIf="f['lastName']?.touched && f['lastName']?.invalid" class="invalid-feedback">
+                  <div *ngIf="f['lastName'].errors?.['required']">Last Name is required</div>
+                  <div *ngIf="f['lastName'].errors?.['pattern']">Last Name can only contain alphabets and spaces</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dob-pan">
+            <div class="login-form-group">
+              <input type="text" formControlName="dateOfBirth" placeholder="Date Of Birth" onfocus="this.type='date'"
+                onblur="this.type='text'" class="login-form-control"
+                [ngClass]="{ 'is-invalid': f['dateOfBirth'].touched && f['dateOfBirth'].invalid }">
+              <div *ngIf="f['dateOfBirth']?.touched && f['dateOfBirth']?.invalid" class="invalid-feedback">
+                <div *ngIf="f['dateOfBirth'].errors?.['required']">Date of Birth is required</div>
+                <div *ngIf="f['dateOfBirth'].errors?.['past']">Date of Birth must be in the past</div>
+              </div>
+            </div>
+
+
+            <div class="login-form-group">
+              <div class="pan">
+                <input type="text" formControlName="panNumber" placeholder="PAN Number" class="login-form-control"
+                  [ngClass]="{ 'is-invalid': f['panNumber'].touched && f['panNumber'].invalid }">
+                <div *ngIf="f['panNumber']?.touched && f['panNumber']?.invalid" class="invalid-feedback">
+                  <div *ngIf="f['panNumber'].errors?.['required']">PAN Number is required</div>
+                  <div *ngIf="f['panNumber'].errors?.['pattern']">Invalid PAN number format</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="employee">
+            <div class="salary">
+              <div class="login-form-group">
+                <input type="number" formControlName="salary" placeholder="Salary" class="login-form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['salary'].errors }">
+                <div *ngIf="submitted && f['salary'].errors" class="invalid-feedback"></div>
+                <div class="text-danger" *ngIf="f['salary'].errors?.['min']">Salary must be a positive number</div>
+              </div>
+            </div>
+
+            <div class="ename">
+              <div class="login-form-group">
+
+                <input type="text" formControlName="employerName" placeholder="Employer Name" class="login-form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['employerName'].errors }">
+                <div *ngIf="submitted && f['employerName'].errors" class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="sal-type">
+
+            <div class="type">
+              <div class="login-form-group">
+                <select formControlName="userType" class="login-form-control"
+                  [ngClass]="{ 'is-invalid': f['userType'].touched && f['userType'].invalid }">
+
+                  <option value="">User Type</option>
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
+                </select>
+                <div *ngIf="f['userType']?.touched && f['userType']?.invalid" class="invalid-feedback">
+                  <div *ngIf="f['userType'].errors?.['required']">User Type is required</div>
+                  <div *ngIf="f['userType'].errors?.['pattern']">User Type should be either 'Admin' or 'User'</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact">
+          <h5>Contact Details</h5>
+          <div class="all-contact">
+            <div class="email-phone">
+              <div class="login-form-group">
+                <input type="email" formControlName="emailAddress" placeholder="Email Address"
+                  class="login-form-control"
+                  [ngClass]="{ 'is-invalid': f['emailAddress'].touched && f['emailAddress'].invalid }">
+                <div *ngIf="f['emailAddress']?.touched && f['emailAddress']?.invalid" class="invalid-feedback">
+                  <div class="text-danger" *ngIf="f['emailAddress'].errors?.['required']">Email Address is required
+                  </div>
+                  <div *ngIf="f['emailAddress'].errors?.['email']">Invalid email address</div>
+                </div>
+              </div>
+              <div class="phone">
+                <div class="login-form-group">
+                  <input type="text" formControlName="contactNumber" placeholder="Contact Number"
+                    class="login-form-control"
+                    [ngClass]="{ 'is-invalid': f['contactNumber'].touched && f['contactNumber'].invalid }">
+                  <div *ngIf="f['contactNumber']?.touched && f['contactNumber']?.invalid" class="invalid-feedback">
+                    <div class="text-danger" *ngIf="f['contactNumber'].errors?.['required']">Contact Number is required
+                    </div>
+                    <div class="text-danger" *ngIf="f['contactNumber'].errors?.['pattern']">Contact Number must start
+                      with
+                      digits
+                      6-9 and contain 10 digits</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Add Address form group -->
+            <div formGroupName="address" class="form-inline">
+              <div class="login-form-group">
+                <p><b>Address</b></p>
+                <div class="street-city">
+                <div class="street-input">
+                  <input type="text" formControlName="addressLine" placeholder="Street" class="login-form-control"
+                    [ngClass]="{ 'is-invalid': f['address'].get('addressLine')?.touched && f['address'].get('addressLine')?.invalid }">
+                  <div *ngIf="f['address'].get('addressLine')?.touched && f['address'].get('addressLine')?.invalid"
+                    class="invalid-feedback">
+                    <div *ngIf="f['address'].get('addressLine')?.errors?.['required']">Street is required</div>
+                  </div>
+                </div>
+                <div class="city-input">
+                  <input type="text" formControlName="city" placeholder="City" class="login-form-control"
+                    [ngClass]="{ 'is-invalid': f['address'].get('city')?.touched && f['address'].get('city')?.invalid }">
+                  <div *ngIf="f['address'].get('city')?.touched && f['address'].get('city')?.invalid" class="invalid-feedback">
+                    <div *ngIf="f['address'].get('city')?.errors?.['required']">City is required</div>
+                  </div>
+                </div>
+              </div>
+                <div class="pin-state">
+                  <div class="pin">
+                  <input type="text" formControlName="cityPincode" placeholder="Pincode" class="login-form-control"
+                    [ngClass]="{ 'is-invalid': f['address'].get('cityPincode')?.touched && f['address'].get('cityPincode')?.invalid }">
+                  <div *ngIf="f['address'].get('cityPincode')?.touched && f['address'].get('cityPincode')?.invalid"
+                    class="invalid-feedback">
+                    <div *ngIf="f['address'].get('cityPincode')?.errors?.['required']">Pincode is required</div>
+                  </div>
+                </div>
+                <div class="state">
+                  <input type="text" formControlName="state" placeholder="State" class="login-form-control"
+                    [ngClass]="{ 'is-invalid': f['address'].get('state')?.touched && f['address'].get('state')?.invalid }">
+                  <div *ngIf="f['address'].get('state')?.touched && f['address'].get('state')?.invalid" class="invalid-feedback">
+                    <div *ngIf="f['address'].get('state')?.errors?.['required']">State is required</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            
+            <br>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="password">
+        <div class="login-form-group password-input">
+          <input type="{{ showPassword ? 'text' : 'password' }}" formControlName="password" placeholder="Password"
+            class="login-form-control" [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].invalid }">
+          <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()">
+            <img src="assets/{{ showPassword ? 'eye_icon.png' : 'closed_eye.png' }}" alt="Toggle Password Visibility"
+              width="15" height="15">
+          </button>
+          <div *ngIf="f['password']?.touched && f['password']?.invalid" class="invalid-feedback">
+            <div class="text-danger" *ngIf="f['password'].errors?.['required']">Password is required</div>
+            <div class="text-danger" *ngIf="f['password'].errors?.['pattern']">Password must contain atleast 8 characters with atleast an uppercase, a lowercase, a digit and a special character </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="submit">
+        <button type="submit">Register</button>
+      </div>
+
+    </form>
+    <footer>
+      <p>&copy; 2024 PoliCare. All rights reserved.</p>
+    </footer>
+  </div>
+</body>

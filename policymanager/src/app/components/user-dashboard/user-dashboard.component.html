@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-dashboard</title>
+    <link rel="stylesheet" href="user-dashboard.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="user-dashboard">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png">
+            <div class="nav-buttons">
+                <!-- <button class="nav-button" routerLink="/explore-policies">Search Policies</button>
+                <button class="nav-button" routerLink="/user-policies">My Policies</button>
+                <button class="nav-button" routerLink="/profile">Profile</button> -->
+                <button (click)="logoutUser()" *ngIf="loggedIn" class="nav-button">Logout</button>
+
+            </div>
+        </nav>
+        <div class="user-dashboard-buttons">
+            <div class="user-dashboard-buttons1">
+                <button class="user-button" routerLink="/explore-policies">Search Policies</button>
+                <button class="user-button" routerLink="/user-policies">MyPolicies</button>
+            </div>
+            <div class="user-dashboard-buttons2">
+                <button class="user-button" routerLink="/payments">Payments</button>
+                <button class="user-button" routerLink="/claims">Claims</button>
+            </div>
+            <button class="user-button middle" routerLink="/profile">Profile</button>
+        </div>
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

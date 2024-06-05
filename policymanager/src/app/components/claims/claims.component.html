@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-dashboard</title>
+    <link rel="stylesheet" href="claims.component.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="claims-container">
+        <nav class="navbar">
+            <img src="\assets\logo-no-background.png">
+            <div class="nav-buttons">
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/explore-policies">Manage Policies</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/explore-policies">Search Policies</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-policies">My Policies</button>
+                <button *ngIf="isAdminLoggedIn()"class="nav-button" routerLink="/user-policies">Manage Registered Policies</button>
+                <button *ngIf="isAdminLoggedIn()|| isUserLoggedIn()" class="nav-button" routerLink="/payments">Payments</button>
+                <button *ngIf="isAdminLoggedIn()" class="nav-button" routerLink="/admin-dashboard">Dashboard</button>
+                <button *ngIf="isUserLoggedIn()" class="nav-button" routerLink="/user-dashboard">Dashboard</button>
+                <button class="nav-button" routerLink="/profile">Profile</button>
+            </div>
+        </nav>
+        <div *ngIf="showEditForm" class="edit-claims">
+            <h2>Update Claim</h2>
+            <form [formGroup]="editClaimForm" (ngSubmit)="onSubmit()">
+                <div>
+                    <label for="userPolicyId">User Policy ID</label>
+                    <input type="number" id="userPolicyId" formControlName="userPolicyId">
+                    <div *ngIf="f['userPolicyId']?.errors && f['userPolicyId']?.touched">
+                        <div class=text-danger *ngIf="f['userPolicyId']?.errors?.['required']">User Policy ID is required.</div>
+                    </div>
+                </div>
+        
+                <div>
+                    <label for="claimDate">Claim Date</label>
+                    <input type="date" id="claimDate" formControlName="claimDate">
+                    <div *ngIf="f['claimDate']?.errors && f['claimDate']?.touched">
+                        <div class=text-danger *ngIf="f['claimDate']?.errors?.['required']">Claim Date is required.</div>
+                    </div>
+                </div>
+        
+                <div>
+                    <label for="claimAmount">Claim Amount</label>
+                    <input type="number" id="claimAmount" formControlName="claimAmount">
+                    <div *ngIf="f['claimAmount']?.errors && f['claimAmount']?.touched">
+                        <div class=text-danger *ngIf="f['claimAmount']?.errors?.['required']">Claim Amount is required.</div>
+                    </div>
+                </div>
+        
+                <div>
+                    <label for="claimStatus">Claim Status</label>
+                    <select id="claimStatus" formControlName="claimStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <div *ngIf="f['claimStatus']?.errors && f['claimStatus']?.touched">
+                        <div class=text-danger *ngIf="f['claimStatus']?.errors?.['required']">Claim Status is required.</div>
+                    </div>
+                </div>
+        
+                <button type="submit" [disabled]="editClaimForm.invalid">Submit</button>
+            </form>
+        </div>
+        
+
+        <div *ngIf="!showEditForm">
+            <div class="select-dropdown">
+                <select id="filterMethod" [(ngModel)]="selectedFilter">
+                    <option value="">Search by</option>
+                    <option value="claimAmount">Search by Claim Amount</option>
+                    <option value="claimStatus">Search by Claim Status</option>
+                    <option value="claimId">Search by Claim Id</option>
+                </select>
+
+                <div *ngIf="selectedFilter === 'claimAmount'">
+                    <input type="number" id="claimAmountFilter" placeholder="Enter Claim Amount" [(ngModel)]="claimAmount" required ngModel
+                        #clmamt="ngModel">
+                    <div class="text-danger" *ngIf="clmamt.touched && clmamt.invalid">Claim Amount is required</div>
+                    <button (click)="searchClaims()">Filter</button>
+                </div>
+
+                <div *ngIf="selectedFilter === 'claimStatus'">
+                    <select id="claimStatusFilter" [(ngModel)]="claimStatus" placeholder="Select Claim Status">
+                        <option value="">Select Claim Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <button (click)="searchClaims()">Filter</button>
+                </div>
+
+                <div *ngIf="selectedFilter === 'claimId'">
+                    <input type="number" id="claimIdFilter" [(ngModel)]="claimId" placeholder="Enter Claim ID" required ngModel
+                    #clmId="ngModel">
+                    <div class="text-danger" *ngIf="clmId.touched && clmId.invalid">Claim Id is required</div>
+                    <button (click)="searchClaims()">Search</button>
+                </div>
+            </div>
+            <div class="search-table">
+                <table class="claims-table" *ngIf="!showEditForm">
+                    <thead class="thead">
+                        <tr>
+                            <th>Claim ID</th>
+                            <th>Claim Date</th>
+                            <th>Claim Amount</th>
+                            <th>Claim Status</th>
+                            <th>UserPolicyId</th>
+                            <th *ngIf="isAdminLoggedIn()">Edit</th>
+                            <th *ngIf="isAdminLoggedIn()">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let claim of paginatedClaims">
+                            <td>{{ claim.claimId }}</td>
+                            <td>{{ claim.claimDate }}</td>
+                            <td>{{ claim.claimAmount }}</td>
+                            <td>{{ claim.claimStatus }}</td>
+                            <td *ngIf="claim.userPolicy">{{ claim.userPolicy.userPolicyId }}</td>
+                            <td *ngIf="isAdminLoggedIn()"><button (click)="editClaim(claim)"><img src="../assets/edit.png" alt="Edit"></button>
+                            </td>
+                            <td *ngIf="isAdminLoggedIn()"><button (click)="deleteClaim(claim.claimId)"><img src="../assets/delete.png"
+                                        alt="Delete"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button type="button" class="btn btn-sm" (click)="prevPage()"
+                        [disabled]="currentPage === 1">Previous</button>
+                    <span>{{ currentPage }} / {{ totalPages }}</span>
+                    <button type="button" class="btn btn-sm" (click)="nextPage()"
+                        [disabled]="currentPage === totalPages">Next</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <footer>
+            <p>&copy; 2024 PoliCare. All rights reserved.</p>
+        </footer>
+    </div>
+
+
+
+</body>
